@@ -150,9 +150,12 @@ void Comm::update(Channel* pChan)
 
 	bool bHadData = m_cWheaterData.readData();
 	char* sim = getenv("SIMULATE_INPUT");
-
+	
 	if (bHadData)
 	{
+		// replace with freeze function later
+//		if (m_cWheaterData->m_cWeatherRadar.m_cPilot.m_nDisplayMode == 0)
+//			return;
 		//cout << "Data recieved\n";
 		auto ownLon = radToDeg(m_cWheaterData->m_cFlightModelData.m_dLongitude);
 		auto ownLat = radToDeg(m_cWheaterData->m_cFlightModelData.m_dLatitude);
@@ -176,6 +179,7 @@ void Comm::update(Channel* pChan)
 			pChan->setSweep(120);
 		}
 		//pChan->setStartAzimuth(m_cWheaterData->m_cFlightModelData.m_dHeading - 60.0);
+		getRadarData().pAntenna->setElevation(m_cWheaterData->m_cWeatherRadar.m_cPilot.m_fTiltAngle);
 		pChan->setHeading(m_cWheaterData->m_cFlightModelData.m_dHeading);
 		pChan->setPositionLLA({ownLon, ownLat, ownAlt });
 		//pChan->setStartAzimuth()
