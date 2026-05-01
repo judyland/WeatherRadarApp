@@ -24,9 +24,16 @@ namespace whrdr
 		void update(Channel* pChan);
 		void initMMP();
 
+		enum Role
+		{
+			PILOT,
+			COPILOT
+		};
 	private:
+
+		Role m_currRole;
 		std::vector<int>	m_aCloudsIds[num_of_clouds];
-		void readClouds();
+		void readClouds(MMPDataElement<blk_WXROutPilotMessage>& data);
 		using IMMPReceiver = MMP::IMMPReceiver;
 		using MMPReceiverPtr = std::unique_ptr<IMMPReceiver, std::function<void(IMMPReceiver*)>>;
 		
@@ -34,7 +41,8 @@ namespace whrdr
 		
 		std::unique_ptr<MMPReceiverMgr>		m_pMMPMgr;
 		MMPReceiverPtr						m_pReceiver;
-		MMPDataElement<blk_WXROutMessage>			m_cWheaterData;
+		MMPDataElement<blk_WXROutPilotMessage>			m_cWheaterData;
+		//MMPDataElement<blk_WXROutPilotMessage>		m_cWheaterCopilotData;
 		static qryIsectDB::ModelPtr					m_pModel;
 		static qryIsectDB::UniquePtr				m_pDB;
 	};

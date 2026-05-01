@@ -339,7 +339,8 @@ const Path& whrdr::getWeatherDataFilesPath()
 	static Path s_path;
 	if (s_path.empty())
 	{
-		const Path defaultPath = R"(C:\work\Weather\SimCore_30_3_25\IG\Data\WeatherData)";
+		//const Path defaultPath = R"(C:\work\Weather\SimCore_30_3_25\IG\Data\WeatherData)";
+		const Path defaultPath = R"(.)";
 		magEnvVarParam envVarParam("WEATHER_RADAR_CHANNEL_DATA_PATH", defaultPath);
 		s_path = envVarParam.value();
 		if (isFileExists(s_path))
